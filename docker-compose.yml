@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db-1
+    environment:
+      - MYSQL_DATABASE=autoscaleml
+      - MYSQL_USER=autoscaleml_user
+      - MYSQL_PASSWORD=autoscaleml_password
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - .:/app
+    command: >
+      sh -c "python manage.py wait_for_db &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+
+  db-1:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=autoscaleml
+      - MYSQL_USER=autoscaleml_user
+      - MYSQL_PASSWORD=autoscaleml_password
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:

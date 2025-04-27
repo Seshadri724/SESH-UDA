@@ -77,9 +77,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'autoscaleml',
-        'USER': 'root',
-        'PASSWORD': 'uday.2244',
-        'HOST': 'localhost',
+        'USER': 'autoscaleml_user',
+        'PASSWORD': 'autoscaleml_password',
+        'HOST': 'db-1',
         'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
